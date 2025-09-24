@@ -4,7 +4,17 @@ const Calculator = () => {
   const [display, setDisplay] = React.useState('');
    
   const appendToDisplay=(value)=> {
-    setDisplay(prev => prev + value);
+    setDisplay ((prev)=>{
+    if (prev ==="" && operators.includes(value) && value !== '-') {
+      return prev;
+    }
+
+      if (operators.includes(value)&& operators.includes(prev.slice(-1) )){
+        return prev;    
+        
+      }
+      return prev + value;
+    });
   }
   const clearDisplay= ()=> {
     setDisplay('');
