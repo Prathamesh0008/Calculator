@@ -1,58 +1,69 @@
 import React from 'react'
 
 const Calculator = () => {
-  const display = document.getElementById('display');
-  function appendToDisplay(value) {
-    display.value += value;
+  const [display, setDisplay] = React.useState('');
+   
+  const appendToDisplay=(value)=> {
+    setDisplay(prev => prev + value);
   }
-  function clearDisplay(value) {
-    display.value = '';
+  const clearDisplay= ()=> {
+    setDisplay('');
   }
-  function totalValue() {
-    display.value = eval(display.value);  
+  const deleteLast= ()=>{
+    setDisplay(prev=> prev.slice(0,-1))
   }
+  const totalValue = () => {
+    try {
+      setDisplay(eval(display).toString());
+    } catch {
+      setDisplay("Error");
+    }
+  };
+  const operators = ['+', '-', '*', '/', '%'];
   return (
-    <div className='w-full h-screen flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500'>
+    <div className='w-full h-screen flex justify-center items-center bg-gradient-to-r from-cyan-300 to-blue-100'>
       <div className='w-85 h-auto gap-10 bg-slate-300 rounded-2xl p-4 m-4 text-center text-2xl shadow-2xl font-semibold'>
         Calculator Component
-        <input id='display' value={Number} placeholder='' readOnly className='bg-amber-50 text-black text-2xl font-bold p-7 w-full rounded-3xl border-0 h-10 my-2' />
-        <div id='keys' className='grid grid-cols-4 gap-2 font-normal '> 
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('+')}>+</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('8')}>8</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('7')}>7</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('9')}>9</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('-')}>-</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('4')}>4</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('5')}>5</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('6')}>6</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('*')}>*</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('1')}>1</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('2')}>2</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('3')}>3</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('/')}>/</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('0')}>0</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => appendToDisplay('.')}>.</button>
-          <button className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={() => totalValue('=')}>=</button>
-          <button  className='w-15 h-15 rounded-2xl border-0 cursor-pointer bg-amber-200'
-           onClick={clearDisplay}>C</button>
+        <input id='display' value={display} placeholder='' readOnly className='bg-amber-50 text-black text-2xl font-bold p-7 w-full rounded-3xl border-0 h-10 my-2' />
+      <div className="grid grid-cols-4 gap-2">
+  
+  {['+','8','7','9','-','4','5','6','*','1','2','3','/','0','.'].map((v) => (
+    <button
+      key={v}
+       className={`h-15 rounded-2xl border-0 cursor-pointer  ${
+                operators.includes(v) 
+                  ? 'bg-orange-500 text-white hover:bg-orange-400 active:bg-orange-600'  
+                  : 'bg-black text-white hover:bg-gray-800 active:bg-gray-900'   
+              }`}
+      onClick={() => appendToDisplay(v)}
+    >
+      {v}
+    </button>
+  ))}
 
-        </div>
+ 
+  <button
+    className="h-15 rounded-2xl border-0 cursor-pointer bg-amber-200  hover:bg-amber-300 active:bg-amber-400"
+    onClick={totalValue}
+  >
+    =
+  </button>
+
+  
+  <button
+    className="h-15 rounded-2xl border-0 cursor-pointer bg-amber-200 hover:bg-amber-300 active:bg-amber-400"
+    onClick={clearDisplay}
+  >
+    C
+  </button>
+  <button
+    className="h-15 rounded-2xl border-0 cursor-pointer bg-amber-200 col-span-3 hover:bg-amber-300 active:bg-amber-400"
+    onClick={deleteLast}
+  >
+    {"<----"}
+  </button>
+</div>
+
       </div>
     </div>
   )

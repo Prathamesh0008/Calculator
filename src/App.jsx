@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './index.css'; // or your file that contains @import "tailwindcss";
 import Calculator from './components/Calculator';
+// import Testy from './components/testy';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     // </div>
     <>
     <Calculator/>
+    {/* <Testy/> */}
     </>
   );
 }
