@@ -29,7 +29,7 @@ const Calculator = () => {
       setDisplay(prev => prev); 
     }
   };
-  const operators = ['+', '-', '*', '/', '%'];
+  const operators = ['+', '-', 'X', '/', '%'];
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gradient-to-r from-gray-800 to-gray-500'>
       <div className='w-85 h-auto gap-10 text-white bg-black rounded-2xl p-4 m-4 text-center text-2xl shadow-2xl font-semibold'>
@@ -37,7 +37,7 @@ const Calculator = () => {
         <input id='display' value={display} placeholder='' readOnly className='bg-amber-50 text-black text-2xl font-bold p-7 w-full rounded-3xl border-0 h-10 my-2' />
       <div className="grid grid-cols-4 gap-2">
   
-  {['+','8','7','9','-','4','5','6','*','1','2','3','/','0','.'].map((v) => (
+  {['+','8','7','9','-','4','5','6','X','1','2','3','/','0','.'].map((v) => (
     <button
       key={v}
        className={`h-15 rounded-2xl border-0 cursor-pointer ${
@@ -45,7 +45,7 @@ const Calculator = () => {
                   ? 'bg-orange-500 text-white hover:bg-orange-400 active:bg-orange-600'  
                   : 'bg-gray-700 text-white hover:bg-gray-800 active:bg-gray-900'   
               }`}
-      onClick={() => appendToDisplay(v)}
+      onClick={() => appendToDisplay(v=== "X"? '*': v)}
     >
       {v}
     </button>
