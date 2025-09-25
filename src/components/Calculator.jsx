@@ -26,7 +26,7 @@ const Calculator = () => {
     try {
       setDisplay(eval(display).toString());
     } catch {
-      setDisplay("Error");
+      setDisplay(prev => prev); 
     }
   };
   const operators = ['+', '-', '*', '/', '%'];
